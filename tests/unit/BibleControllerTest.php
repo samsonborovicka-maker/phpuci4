@@ -3,13 +3,15 @@
 namespace Tests\Support;
 
 use PHPUnit\Framework\TestCase;
-use App\Models\BibleModel;
+use App\Controllers\BibleController;
 
-class BibleModelTest extends TestCase
+class BibleControllerTest extends TestCase
 {
-    public function testCisloSelmyReturns666()
+    public function testIndexReturnsExpectedString()
     {
-        $model = new BibleModel();
-        $this->assertSame(666, $model->cisloSelmy());
+        $controller = new BibleController();
+        $result = $controller->index();
+
+        $this->assertStringContainsString('Cislo selmy je: 666', $result);
     }
 }
