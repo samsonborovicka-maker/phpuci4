@@ -1,0 +1,30 @@
+name: Run PHPUnit tests
+
+on:
+  push:
+    branches: [ master ]
+  pull_request:
+    branches: [ master ]
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+
+    steps:
+      # Checkout repozitář
+      - name: Checkout repo
+        uses: actions/checkout@v3
+
+      # Nastavení PHP (stejná verze jako v composer.json)
+      - name: Setup PHP
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: '8.1'
+
+      # Instalace závislostí přes Composer
+      - name: Install dependencies
+        run: composer install --no-progress --prefer-dist --no-interaction
+
+      # Spuštění PHPUnit testů bez coverage (aby byl čistý exit code 0)
+      - name: Run tests
+        run: composer test -- --no-coverage
