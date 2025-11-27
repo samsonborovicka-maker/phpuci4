@@ -1,0 +1,24 @@
+name: CI
+
+on:
+  push:
+    branches: [ master ]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      # Stáhne repozitář
+      - name: Checkout repo
+        uses: actions/checkout@v3
+
+      # Nainstaluje PHP (můžeš změnit verzi podle potřeby)
+      - name: Setup PHP
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: '8.2'
+
+      # Spustí lint jen na public/index.php
+      - name: Run PHP lint on public/index.php
+        run: php -l public/index.php
